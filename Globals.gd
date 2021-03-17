@@ -1,0 +1,12 @@
+extends Node
+
+
+const TILE_SIZE = 2048.0
+const INITIAL_X_OFFSET = 1024.0
+const INITIAL_Y_OFFSET = 1024.0
+
+const GROUND_TO_SKY_IDX = 3
+const GROUND_IDX = 4
+const INSIDE_GROUND_IDX = 5
+
+
