@@ -13,4 +13,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	global_position.y = min(Globals.TILE_SIZE*(Globals.GROUND_IDX+1), global_position.y)
+	position = get_node("../Player").position

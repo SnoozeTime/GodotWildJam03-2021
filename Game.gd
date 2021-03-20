@@ -17,7 +17,8 @@ func _process(_delta):
 	update_distances()
 	
 	if Input.is_action_just_pressed("Reset"):
-		reset_game()
+		$Cliff.show()
+		reset_game(0,0)
 
 func spawn_new_tiles(tile, _body):
 
@@ -105,8 +106,8 @@ func update_distances():
 	var distance = ($Player.position.x - 100.0) / 100.0
 	
 	$CanvasLayer/GUI.set_distances(height, distance)
-	
-func reset_game():
+
+func reset_game(base_x, base_y):
 	
 	# First the tiles.
 	for sky in $SkyTiles.get_children():
@@ -117,7 +118,7 @@ func reset_game():
 		for y in range(0, 3):
 			var tile = tile_scene.instance()
 			$SkyTiles.add_child(tile)
-			tile.set_new_index(x-1, y-1)
+			tile.set_new_index(base_x + x-1, base_y + y-1)
 			tile.connect("entered_tile", self, "spawn_new_tiles")
 			
 	# Reset player

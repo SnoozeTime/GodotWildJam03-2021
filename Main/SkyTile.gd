@@ -11,8 +11,13 @@ var propulsion = preload("res://Main/Propulsion.tscn")
 # Textures
 var sky_to_ground_tex = preload("res://Assets/Textures/sky_to_ground.png")
 var ground_tex = preload("res://Assets/Textures/ground.png")
+var ground_sky_tex = preload("res://Assets/Textures/ground_sky.png")
 var sky_tex = preload("res://Assets/Textures/Sky.png")
 var inside_ground_tex = preload("res://Assets/Textures/inside_ground.png")
+var sky_to_atmos_tex = preload("res://Assets/Textures/sky_to_highatmos.png")
+var atmos_tex = preload("res://Assets/Textures/highatmos.png")
+var atmos_to_space_tex = preload("res://Assets/Textures/highatmos_to_space.png")
+var space_tex = preload("res://Assets/Textures/space.png")
 
 export var max_birds = 4
 export var birds_per_tranch: int = 1
@@ -26,6 +31,46 @@ const INITIAL_Y_OFFSET = Globals.INITIAL_Y_OFFSET
 const TILE_SIZE = Globals.TILE_SIZE
 # Difficulty increases every 10.
 const TILE_TRANCH_SIZE = 10
+
+
+
+enum Section {
+	InsideGround,
+	Ground,
+	LowSky,
+	LowSkyToSky,
+	Sky,
+	SkyToAtmos,
+	Atmos,
+	AtmosToSpace,
+	Space,
+}
+
+var section_to_tex = {
+	Section.InsideGround: inside_ground_tex,
+	Section.Ground: ground_tex,
+	Section.LowSky: ground_sky_tex,
+	Section.LowSkyToSky: sky_to_ground_tex,
+	Section.Sky: sky_tex,
+	Section.SkyToAtmos: sky_to_atmos_tex,
+	Section.Atmos: atmos_tex,
+	Section.AtmosToSpace: atmos_to_space_tex,
+	Section.Space: space_tex,
+}
+
+var section_to_max_jumpad = {
+	Section.InsideGround: 4,
+	Section.Ground: 4,
+	Section.LowSky: 4,
+	Section.LowSkyToSky: 4,
+	Section.Sky: 4,
+	Section.SkyToAtmos: 3,
+	Section.Atmos: 3,
+	Section.AtmosToSpace: 2,
+	Section.Space: 0,
+}
+
+var section = Section.Sky
 
 func _ready():
 	$Label.text = "(%s,%s)" % [tile_x_index, tile_y_index]
@@ -45,6 +90,7 @@ func set_new_index(x_offset, y_offset):
 	
 	
 	# choose the texture according to height.
+	update_section()
 	choose_tex()
 	
 	# Spawn stuff. Needs to be done at some other point because this is modifying
@@ -52,16 +98,27 @@ func set_new_index(x_offset, y_offset):
 	call_deferred("spawn_props")
 
 func choose_tex():
-	
-	match tile_y_index:
-		Globals.GROUND_IDX:
-			texture = ground_tex
-		Globals.GROUND_TO_SKY_IDX:
-			texture = sky_to_ground_tex
-		Globals.INSIDE_GROUND_IDX:
-			texture = inside_ground_tex
-		_:
-			texture = sky_tex
+	texture = section_to_tex[section]
+
+func update_section():
+	if tile_y_index == Globals.INSIDE_GROUND_IDX:
+		section = Section.InsideGround
+	elif tile_y_index == Globals.GROUND_IDX:
+		section = Section.Ground
+	elif tile_y_index > Globals.GROUND_TO_SKY_IDX:
+		section = Section.LowSky
+	elif tile_y_index == Globals.GROUND_TO_SKY_IDX:
+		section = Section.LowSkyToSky
+	elif tile_y_index > Globals.SKY_TO_ATMOS_IDX:
+		section = Section.Sky
+	elif tile_y_index == Globals.SKY_TO_ATMOS_IDX:
+		section = Section.SkyToAtmos
+	elif tile_y_index > Globals.ATMOS_TO_SPACE_IDX:
+		section = Section.Atmos
+	elif tile_y_index == Globals.ATMOS_TO_SPACE_IDX:
+		section = Section.AtmosToSpace
+	else:
+		section = Section.Space
 
 
 func spawn_props():
@@ -108,7 +165,10 @@ func get_nb_to_spawn():
 	"""
 	
 	var tile_tranch = int(round(tile_x_index / TILE_TRANCH_SIZE))
-	var jumppads = 2 + randi() % 4
+	
+	var jumppads = 0
+	if section_to_max_jumpad[section] > 0:
+		jumppads = randi() % section_to_max_jumpad[section]
 	var propulsions = randi() % 2
 	
 	return {

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Main/GUI/LabelWithIcon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Textures/UI/Road.png" type="Texture" id=2]
+
+[node name="DistanceLabel" instance=ExtResource( 1 )]
+margin_bottom = -536.0
+
+[node name="LeftTexture" parent="." index="0"]
+margin_bottom = 64.0
+
+[node name="TextureRect" parent="." index="1"]
+margin_right = 50.0
+margin_bottom = 64.0
+texture = ExtResource( 2 )
+stretch_mode = 4
+
+[node name="Label" parent="." index="2"]
+margin_left = 54.0
+margin_top = 6.0
+margin_right = 160.0
+margin_bottom = 57.0
