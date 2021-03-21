@@ -56,7 +56,25 @@ position = Vector2( 1032, 1240 )
 [node name="SkyLevel" type="Node2D" parent="Props"]
 position = Vector2( 1024, -512 )
 
+[node name="SkyLevel2" type="Node2D" parent="Props"]
+position = Vector2( 1024, -1304 )
+
+[node name="SkyLevel3" type="Node2D" parent="Props"]
+position = Vector2( 1024, -2104 )
+
+[node name="SkyLevel4" type="Node2D" parent="Props"]
+position = Vector2( 1024, -3104 )
+
+[node name="AtmosLevel" type="Node2D" parent="Props"]
+position = Vector2( 1024, -4328 )
+
+[node name="AtmosLevel2" type="Node2D" parent="Props"]
+position = Vector2( 1032, -5736 )
+
+[node name="Space" type="Node2D" parent="Props"]
+position = Vector2( 1024, -7232 )
+
 [node name="mountains" type="Sprite" parent="."]
-position = Vector2( 1032, 813.5 )
+position = Vector2( 1032, 816 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 7 )

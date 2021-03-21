@@ -4,6 +4,7 @@ signal add_money()
 signal game_over()
 signal used_rocket()
 signal used_helmet()
+signal flapped()
 
 var speed = 10.0
 
@@ -43,17 +44,13 @@ var hovering = false
 export var hover_modifier: float = 1.3
 
 var velocity: Vector2 = Vector2(0, 0)
-#export var terminal_vertical_vel = 2800.0
-#export var terminal_horizontal_vel = 1000.0
-#var current_terminal_vel_x = terminal_horizontal_vel
 
 const STOPPED_VEL = 20
-const MAX_GENKINESS = 100.0
-# How much energy. Refill over time. flapping wings exhaust some energy.
-var genkiness = MAX_GENKINESS
-var flap_consumption = 30.0
-export(float, 1.0, 10.0) var genkiness_restore_rate = 5.0 # per second
-export(float, 300.0, 1000.0) var flap_strength = 500.0
+
+
+var MAX_FLAP = 3
+var flap_count = MAX_FLAP
+export(float, 300.0, 1000.0) var flap_strength = 900.0
 
 
 var has_helmet = false
@@ -67,29 +64,46 @@ func _ready():
 func show_flying_sprite():
 	$Sprite.show()
 	$cannon.hide()
+	$cannon2.hide()
 
 func update_launcher_sprite():
-	if Save.upgrade_level > 0:
+	if Save.upgrade_level == 1:
 		$Sprite.hide()
 		$cannon.show()
+		$cannon2.hide()
+	elif Save.upgrade_level == 2:
+		$Sprite.hide()
+		$cannon2.show()
+		$cannon.hide()
 	else:
 		$Sprite.show()
 		$cannon.hide()
+		$cannon2.hide()
 		
 func get_cannon_sprite():
-	if Save.upgrade_level>0:
+	if Save.upgrade_level==1:
 		return $cannon
+	elif Save.upgrade_level==2:
+		return $cannon2
 	else:
 		return $LaunchSprites/DirectionGauge
 		
+func get_throw_point():
+	if Save.upgrade_level==1:
+		return $cannon/ThrowPoint.global_position
+	elif Save.upgrade_level==2:
+		return $cannon2/ThrowPoint.global_position
+	else:
+		return global_position
+
 func get_cannon_power():
-	match Save.upgrade_level:
-		0:
-			return launch_strength
-		1:
-			return launch_strength*1.5
-		_:
-			return launch_strength*2.0
+	if Save.upgrade_level == 0:
+		return launch_strength
+	elif Save.upgrade_level == 1:
+		return launch_strength*1.5
+	else:
+		 
+		return launch_strength*4.0
 
 func update_inventory(inventory):
 	has_helmet = inventory["helmet"]
@@ -97,7 +111,7 @@ func update_inventory(inventory):
 	has_wings = inventory["wings"]
 
 func can_flap() -> bool:
-	return genkiness - flap_consumption >= 0 && velocity.y > 0
+	return flap_count > 0 && velocity.y > 0
 	
 func flap() -> void:
 	if can_flap():
@@ -105,8 +119,11 @@ func flap() -> void:
 		if has_wings:
 			flap_str *= 2
 		velocity.y = flap_str
+		velocity.x *= 1.2
 		animator.play("Jump")
-		genkiness -= flap_consumption
+		$SoundEffects/Flap.play()
+		flap_count -= 1
+		emit_signal("flapped")
 
 func _process(delta):
 	match state:
@@ -131,7 +148,6 @@ func _process(delta):
 				$LaunchSprites/PowerGauge.hide()
 				show_flying_sprite()
 		PlayerState.Flying:
-			genkiness = min(MAX_GENKINESS, genkiness + delta * genkiness_restore_rate)
 			if Input.is_action_just_pressed("ui_cancel"):
 				state = PlayerState.Pause
 				
@@ -144,14 +160,14 @@ func _process(delta):
 				
 
 func _physics_process(delta):
-	
+
 	if state != PlayerState.Flying:
 		return
+		
+	# Air drag, so that vel_x decreases a bit over time.
+	velocity.x *= 0.999
 	
-	var gravity_to_apply = gravity
-
-	if state == PlayerState.Flying:
-		velocity.y = gravity_to_apply + velocity.y
+	velocity.y = gravity + velocity.y
 	
 	if Input.is_action_just_pressed("Jump"):
 		flap()
@@ -167,17 +183,24 @@ func _physics_process(delta):
 
 	var vel_before = velocity
 	velocity = move_and_slide(vel_before, Vector2.UP)
-	
+
 	# REBOUND !!!
 	if get_slide_count() > 0:
+		
+		if !$SoundEffects/Rebound.playing:
+			$SoundEffects/Rebound.play()
 		var collision = get_slide_collision(0)
 		if collision != null:
 			velocity.y = -0.7*vel_before.y
+			velocity.x *= 0.9
 	
 	
 func launch():
+	#global_position = get_throw_point()
 	var direction = Vector2.RIGHT.rotated(get_cannon_sprite().rotation)
-	velocity = direction * $LaunchSprites/PowerGauge/TextureProgress.value * get_cannon_power()
+	var launch_str = get_cannon_power()
+	velocity = direction * $LaunchSprites/PowerGauge/TextureProgress.value * launch_str
+
 	
 func on_jump(impulse):
 	""" To apply when the player encounters a jump pad. 
@@ -186,17 +209,21 @@ func on_jump(impulse):
 	velocity.y = impulse.y
 
 func bird_collision():
-	velocity.x *= 0.5
-	velocity.y *= 0.9
+	velocity.x += jump_strength
+	velocity.y = -jump_strength*3.0
 	
 func propulsion():
 	velocity.x = propulsion_vel
 	velocity.y = -1.0
+	$SoundEffects/Dash.play()
 
 func reset(pos):
 	state = PlayerState.Buying
 	velocity = Vector2(0,0)
 	position = pos
+	$Sprite.hide()
+	flap_count = MAX_FLAP
+	update_launcher_sprite()
 	show()
 
 func caught_in_cage():
@@ -214,3 +241,5 @@ func caught_in_cage():
 func add_money(amt):
 	emit_signal("add_money", amt)
 
+func refill_flaps():
+	flap_count = MAX_FLAP

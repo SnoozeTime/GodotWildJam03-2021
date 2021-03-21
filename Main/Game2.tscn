@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Main/BackgroundTranch.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://Main/GUI/GameOverPanel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Main/GUI/StartPanel.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Main/FollowPlayerCamera.gd" type="Script" id=8]
+[ext_resource path="res://Assets/Audio/battleThemeA.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Audio/Sounds/gameover.wav" type="AudioStream" id=10]
+[ext_resource path="res://Main/GUI/AchievementScreen.tscn" type="PackedScene" id=11]
 
 [node name="Game2" type="Node2D"]
 script = ExtResource( 3 )
@@ -38,6 +41,8 @@ texture = ExtResource( 4 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="AchievementScreen" parent="CanvasLayer" instance=ExtResource( 11 )]
+
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 5 )]
 visible = false
 
@@ -59,7 +64,19 @@ position = Vector2( 0, 1256 )
 
 [node name="MaxAltitude" type="Node2D" parent="."]
 position = Vector2( 0, -8832 )
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+autoplay = true
+bus = "Background"
+
+[node name="SoundEffects" type="Node" parent="."]
+
+[node name="GameOver" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource( 10 )
+bus = "SoundEffects"
 [connection signal="add_money" from="Player" to="." method="_on_Player_add_money"]
+[connection signal="flapped" from="Player" to="." method="_on_Player_flapped"]
 [connection signal="game_over" from="Player" to="." method="_on_Player_game_over"]
 [connection signal="used_helmet" from="Player" to="." method="_on_Player_used_helmet"]
 [connection signal="used_rocket" from="Player" to="." method="_on_Player_used_rocket"]
@@ -68,4 +85,6 @@ position = Vector2( 0, -8832 )
 [connection signal="buy_upgrade" from="CanvasLayer/BuyMenu" to="." method="_on_BuyMenu_buy_upgrade"]
 [connection signal="buy_wings" from="CanvasLayer/BuyMenu" to="." method="_on_BuyMenu_buy_wings"]
 [connection signal="start_game" from="CanvasLayer/BuyMenu" to="." method="_on_MarginContainer2_start_game"]
+[connection signal="to_menu" from="CanvasLayer/BuyMenu" to="." method="return_to_menu"]
+[connection signal="quit" from="CanvasLayer/GameOverPanel" to="." method="return_to_menu"]
 [connection signal="restart" from="CanvasLayer/GameOverPanel" to="." method="_on_GameOverPanel_restart"]

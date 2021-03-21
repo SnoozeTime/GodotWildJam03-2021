@@ -19,4 +19,7 @@ z_index = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0, 8 )
 shape = SubResource( 1 )
+
+[node name="SoundEffect" type="AudioStreamPlayer" parent="."]
+bus = "SoundEffects"
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

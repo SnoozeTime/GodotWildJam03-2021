@@ -39,12 +39,13 @@ func _ready():
 func _on_MarginContainer2_start_game():
 	$CanvasLayer/BuyMenu.hide()
 	$CanvasLayer/HUD.show()
+	$CanvasLayer/HUD.update_inventory(current_inventory)
+	$CanvasLayer/HUD.set_flaps($Player.flap_count)
 	$Player.update_inventory(current_inventory)
 	$Player.set_ready()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$CanvasLayer/HUD.set_genkiness($Player.genkiness)
 
 	if $Player.position.x > next_x_threshold:
 		var tranch_on_left = get_most_left_tranch()
@@ -55,6 +56,7 @@ func _process(delta):
 		
 	var distances = compute_distances()
 	max_altitude = max(max_altitude, distances.y)
+	$CanvasLayer/AchievementScreen.update_player_distance(distances.x)
 	$CanvasLayer/HUD.update_positions(distances.x, distances.y)
 
 func compute_distances() -> Vector2:
@@ -69,6 +71,8 @@ func get_most_left_tranch():
 
 
 func _on_Player_game_over():
+	
+	$SoundEffects/GameOver.play()
 	
 	var distances = compute_distances()
 	$CanvasLayer/GameOverPanel.set_stats(distances.x, max_altitude, money_earned)
@@ -90,6 +94,7 @@ func _on_Player_add_money(amt):
 
 
 func _on_GameOverPanel_restart():
+	max_altitude = 0
 	# Replace player.
 	$Player.reset(player_initial_pos)
 	
@@ -102,6 +107,8 @@ func _on_GameOverPanel_restart():
 	
 	# Hide game over screen and show the shop
 	current_inventory = get_default_inventory()
+	$CanvasLayer/HUD.update_inventory(current_inventory)
+	$CanvasLayer/HUD.update_money(money_earned)
 	$CanvasLayer/BuyMenu.update_buy_buttons(current_inventory)
 	$CanvasLayer/BuyMenu.show()
 	$CanvasLayer/GameOverPanel.hide()
@@ -155,6 +162,7 @@ func _on_BuyMenu_buy_upgrade():
 		Save.upgrade_level += 1
 		$CanvasLayer/BuyMenu.update_money()
 		$CanvasLayer/BuyMenu.update_buy_buttons(current_inventory)
+		$Player.update_launcher_sprite()
 
 
 func _on_BuyMenu_buy_wings():
@@ -167,7 +175,15 @@ func _on_BuyMenu_buy_wings():
 
 func _on_Player_used_helmet():
 	current_inventory["helmet"] = false
-
+	$CanvasLayer/HUD.update_inventory(current_inventory)
 
 func _on_Player_used_rocket():
 	current_inventory["rocket"] = false
+	$CanvasLayer/HUD.update_inventory(current_inventory)
+
+func return_to_menu():
+	Transition.fade_to("res://Main/GUI/MainScreen.tscn")
+
+
+func _on_Player_flapped():
+	$CanvasLayer/HUD.set_flaps($Player.flap_count)

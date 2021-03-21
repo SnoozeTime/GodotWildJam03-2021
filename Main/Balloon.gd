@@ -10,6 +10,7 @@ func _physics_process(delta):
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("Player"):
 		body.on_jump(1500.0*Vector2.UP)
+		$AudioStreamPlayer2D.play()
 		$AnimationPlayer.play("Pop")
 
 func _on_AnimationPlayer_animation_finished(anim_name):

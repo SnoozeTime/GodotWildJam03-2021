@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/rebound.wav-b1e066310f1a663859e218514ff90f50.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/Sounds/rebound.wav"
+dest_files=[ "res://.import/rebound.wav-b1e066310f1a663859e218514ff90f50.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Main/GUI/GameTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Main/GUI/ButtonAudio.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Main/GUI/StartPanel.gd" type="Script" id=4]
 [ext_resource path="res://Main/GUI/Panel.tscn" type="PackedScene" id=5]
 
@@ -37,7 +38,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
 margin_right = 572.0
-margin_bottom = 440.0
+margin_bottom = 439.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -49,89 +50,110 @@ theme = ExtResource( 1 )
 text = "MONEY: "
 
 [node name="ItemsToBuy" type="GridContainer" parent="Control/MarginContainer/VBoxContainer"]
-margin_left = 280.0
+margin_left = 292.0
 margin_top = 55.0
 margin_right = 572.0
-margin_bottom = 295.0
+margin_bottom = 271.0
 size_flags_horizontal = 10
 theme = ExtResource( 1 )
 custom_constants/hseparation = 53
 columns = 2
 
 [node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/ItemsToBuy"]
-margin_top = 3.0
 margin_right = 146.0
-margin_bottom = 54.0
+margin_bottom = 51.0
 theme = ExtResource( 1 )
 text = "Rocket"
 
 [node name="RocketBuy" type="Button" parent="Control/MarginContainer/VBoxContainer/ItemsToBuy"]
 margin_left = 222.0
-margin_right = 292.0
-margin_bottom = 57.0
+margin_right = 280.0
+margin_bottom = 51.0
 size_flags_horizontal = 8
 theme = ExtResource( 1 )
 text = "$50"
 
 [node name="Label2" type="Label" parent="Control/MarginContainer/VBoxContainer/ItemsToBuy"]
-margin_top = 64.0
+margin_top = 55.0
 margin_right = 146.0
-margin_bottom = 115.0
+margin_bottom = 106.0
 theme = ExtResource( 1 )
 text = "Helmet"
 
 [node name="HelmetBuy" type="Button" parent="Control/MarginContainer/VBoxContainer/ItemsToBuy"]
 margin_left = 200.0
-margin_top = 61.0
-margin_right = 292.0
-margin_bottom = 118.0
+margin_top = 55.0
+margin_right = 280.0
+margin_bottom = 106.0
 size_flags_horizontal = 8
 theme = ExtResource( 1 )
 text = "$200"
 
 [node name="WingTips" type="Label" parent="Control/MarginContainer/VBoxContainer/ItemsToBuy"]
-margin_top = 125.0
+margin_top = 110.0
 margin_right = 146.0
-margin_bottom = 176.0
+margin_bottom = 161.0
 theme = ExtResource( 1 )
 text = "Wing Tips"
 
 [node name="WingBuy" type="Button" parent="Control/MarginContainer/VBoxContainer/ItemsToBuy"]
 margin_left = 203.0
-margin_top = 122.0
-margin_right = 292.0
-margin_bottom = 179.0
+margin_top = 110.0
+margin_right = 280.0
+margin_bottom = 161.0
 size_flags_horizontal = 8
 theme = ExtResource( 1 )
 text = "$100"
 
 [node name="Label3" type="Label" parent="Control/MarginContainer/VBoxContainer/ItemsToBuy"]
-margin_top = 186.0
+margin_top = 165.0
 margin_right = 146.0
-margin_bottom = 237.0
+margin_bottom = 216.0
 theme = ExtResource( 1 )
 text = "Upgrade"
 
 [node name="UpgradeBuy" type="Button" parent="Control/MarginContainer/VBoxContainer/ItemsToBuy"]
 margin_left = 199.0
-margin_top = 183.0
-margin_right = 292.0
-margin_bottom = 240.0
+margin_top = 165.0
+margin_right = 280.0
+margin_bottom = 216.0
 size_flags_horizontal = 8
 theme = ExtResource( 1 )
 text = "$500"
 
-[node name="StartButton" type="Button" parent="Control/MarginContainer/VBoxContainer"]
-margin_left = 484.0
-margin_top = 383.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+margin_left = 430.0
+margin_top = 388.0
 margin_right = 572.0
-margin_bottom = 440.0
+margin_bottom = 439.0
+size_flags_horizontal = 8
+size_flags_vertical = 10
+
+[node name="StartButton" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 76.0
+margin_bottom = 51.0
 size_flags_horizontal = 8
 size_flags_vertical = 10
 theme = ExtResource( 1 )
 text = "Start"
+
+[node name="ExitButton" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 80.0
+margin_right = 142.0
+margin_bottom = 51.0
+theme = ExtResource( 1 )
+text = "Quit"
+
+[node name="Audio" parent="." instance=ExtResource( 2 )]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/ItemsToBuy/RocketBuy" to="." method="_on_RocketBuy_mouse_entered"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ItemsToBuy/RocketBuy" to="." method="_on_RocketBuy_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/ItemsToBuy/HelmetBuy" to="." method="_on_HelmetBuy_mouse_entered"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ItemsToBuy/HelmetBuy" to="." method="_on_HelmetBuy_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/ItemsToBuy/WingBuy" to="." method="_on_WingBuy_mouse_entered"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ItemsToBuy/WingBuy" to="." method="_on_WingBuy_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/ItemsToBuy/UpgradeBuy" to="." method="_on_UpgradeBuy_mouse_entered"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ItemsToBuy/UpgradeBuy" to="." method="_on_UpgradeBuy_pressed"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/HBoxContainer/StartButton" to="." method="_on_StartButton_mouse_entered"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/HBoxContainer/ExitButton" to="." method="_on_ExitButton_mouse_entered"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer/ExitButton" to="." method="_on_ExitButton_pressed"]

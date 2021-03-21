@@ -1,21 +1,18 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Assets/Textures/energy_empty.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Textures/energy_progress.png" type="Texture" id=2]
+[ext_resource path="res://Main/GUI/Flap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/GUI/GameTheme.tres" type="Theme" id=3]
 [ext_resource path="res://Main/GUI/AltitudeLabel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Main/GUI/HUD.gd" type="Script" id=5]
 [ext_resource path="res://Main/GUI/DistanceLabel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Textures/UI/HelmetIcon.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Textures/UI/WingIcon.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Textures/UI/RocketIcon.png" type="Texture" id=9]
 
-[node name="HUD" type="MarginContainer"]
+[node name="HUD" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
 script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MoneyLabel" type="Label" parent="."]
 margin_right = 950.0
@@ -25,37 +22,94 @@ theme = ExtResource( 3 )
 text = "$0"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-margin_top = 539.0
-margin_right = 950.0
-margin_bottom = 590.0
+anchor_top = 0.747
+anchor_right = 0.992
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 44.0
+margin_right = -16.0
+margin_bottom = -20.0
 size_flags_vertical = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-margin_right = 950.0
-margin_bottom = 51.0
+margin_right = 926.0
+margin_bottom = 95.0
 
-[node name="TextureProgress" type="TextureProgress" parent="MarginContainer/HBoxContainer"]
-margin_right = 393.0
-margin_bottom = 51.0
+[node name="Flaps" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 474.0
+margin_bottom = 95.0
 size_flags_horizontal = 3
-value = 100.0
-texture_under = ExtResource( 1 )
-texture_progress = ExtResource( 2 )
+size_flags_vertical = 12
+size_flags_stretch_ratio = 1.67
+
+[node name="Flap1" parent="MarginContainer/HBoxContainer/Flaps" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 56.0
+margin_bottom = 95.0
+rect_scale = Vector2( 1, 1 )
+
+[node name="Flap2" parent="MarginContainer/HBoxContainer/Flaps" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 60.0
+margin_right = 116.0
+margin_bottom = 95.0
+rect_scale = Vector2( 1, 1 )
+
+[node name="Flap3" parent="MarginContainer/HBoxContainer/Flaps" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 120.0
+margin_right = 176.0
+margin_bottom = 95.0
+rect_scale = Vector2( 1, 1 )
 
 [node name="AltitudeLabel" parent="MarginContainer/HBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 397.0
-margin_right = 790.0
-margin_bottom = 51.0
+margin_left = 478.0
+margin_right = 761.0
+margin_bottom = 95.0
 size_flags_horizontal = 3
 script = null
 
 [node name="DistanceLabel" parent="MarginContainer/HBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 794.0
-margin_right = 950.0
-margin_bottom = 51.0
+margin_left = 765.0
+margin_right = 925.0
+margin_bottom = 95.0
 size_flags_horizontal = 9
 script = null
+
+[node name="BonusesContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.725
+anchor_right = 0.99
+anchor_bottom = 0.16
+margin_left = 56.0
+margin_right = -0.400085
+margin_bottom = -1.00001
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HelmetIcon" type="TextureRect" parent="BonusesContainer"]
+margin_right = 68.0
+margin_bottom = 95.0
+texture = ExtResource( 7 )
+
+[node name="WingIcon" type="TextureRect" parent="BonusesContainer"]
+margin_left = 72.0
+margin_right = 128.0
+margin_bottom = 95.0
+texture = ExtResource( 8 )
+
+[node name="RocketIcon" type="TextureRect" parent="BonusesContainer"]
+margin_left = 132.0
+margin_right = 180.0
+margin_bottom = 95.0
+texture = ExtResource( 9 )

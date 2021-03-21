@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/Textures/UI/WingIcon.png" type="Texture" id=1]
+
+[node name="TextureRect" type="TextureRect"]
+anchor_right = 0.029
+anchor_bottom = 0.079
+margin_right = 28.16
+margin_bottom = 47.6
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Intro Jingle.wav-67cb425a542e95cef283e827ada64bf6.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/Intro Jingle.wav"
+dest_files=[ "res://.import/Intro Jingle.wav-67cb425a542e95cef283e827ada64bf6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

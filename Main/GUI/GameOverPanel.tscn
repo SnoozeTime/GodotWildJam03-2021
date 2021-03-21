@@ -78,7 +78,7 @@ __meta__ = {
 margin_right = 600.0
 margin_bottom = 51.0
 theme = ExtResource( 1 )
-text = "Statistics:"
+text = "Busted!!!"
 
 [node name="VBoxContainer" type="GridContainer" parent="Control/MarginContainer/VBoxContainer"]
 margin_left = 432.0

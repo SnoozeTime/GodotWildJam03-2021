@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/battleThemeA.wav-50cb251232044bf34f4411faeb5d065b.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/battleThemeA.wav"
+dest_files=[ "res://.import/battleThemeA.wav-50cb251232044bf34f4411faeb5d065b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

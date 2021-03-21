@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Textures/PlayerSpritesheet.png" type="Texture" id=2]
@@ -6,6 +6,10 @@
 [ext_resource path="res://Assets/Textures/energy_progress.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Textures/energy_empty.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Textures/UI/arrow.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Textures/best_cannon.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Audio/Sounds/dash.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Audio/Sounds/rebound.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Audio/Sounds/flap.wav" type="AudioStream" id=10]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 64.4981
@@ -40,14 +44,6 @@ scale = Vector2( 0.5, 0.5 )
 z_index = 2
 texture = ExtResource( 2 )
 hframes = 2
-
-[node name="HoverTimer" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
-
-[node name="DiveTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Jump = SubResource( 2 )
@@ -86,5 +82,25 @@ offset = Vector2( 80, -80 )
 
 [node name="ThrowPoint" type="Node2D" parent="cannon"]
 position = Vector2( 184, -96 )
-[connection signal="timeout" from="HoverTimer" to="." method="_on_HoverTimer_timeout"]
-[connection signal="timeout" from="DiveTimer" to="." method="_on_DiveTimer_timeout"]
+
+[node name="cannon2" type="Sprite" parent="."]
+position = Vector2( 0, 24 )
+texture = ExtResource( 7 )
+offset = Vector2( 80, -80 )
+
+[node name="ThrowPoint" type="Node2D" parent="cannon2"]
+position = Vector2( 184, -96 )
+
+[node name="SoundEffects" type="Node" parent="."]
+
+[node name="Dash" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource( 8 )
+bus = "SoundEffects"
+
+[node name="Rebound" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource( 9 )
+bus = "SoundEffects"
+
+[node name="Flap" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource( 10 )
+bus = "SoundEffects"

@@ -1,0 +1,75 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="success_data" version="1.3.0" audacityversion="2.4.2" sel0="-0.3134693878" sel1="2.5482086168" vpos="0" h="0.0000000000" zoom="86.1328125000" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="Audio Track" isSelected="1" height="150" minimized="0" channel="2" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.3" colorindex="0">
+		<waveclip offset="-0.31346939" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="67584">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f40c.au" len="67584" min="-0.495517" max="0.641209" rms="0.109821"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Audio Track" isSelected="1" height="150" minimized="0" channel="2" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="-0.4" colorindex="0">
+		<waveclip offset="-0.31346939" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="65024">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f9f7.au" len="65024" min="-0.426614" max="0.596174" rms="0.110128"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Audio Track" isSelected="1" height="150" minimized="0" channel="2" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="-0.2" colorindex="0">
+		<waveclip offset="0.83591837" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="46080">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1faba.au" len="46080" min="-1.107526" max="1.258258" rms="0.034839"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Audio Track" isSelected="1" height="150" minimized="0" channel="2" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="-0.3" colorindex="0">
+		<waveclip offset="1.16099773" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="58880">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f4ec.au" len="58880" min="-1.264034" max="1.254923" rms="0.039469"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Audio Track" isSelected="1" height="150" minimized="0" channel="2" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="-0.3" colorindex="0">
+		<waveclip offset="0.74303855" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="79608">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f908.au" len="79608" min="-1.260904" max="1.262788" rms="0.080444"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Audio Track" isSelected="1" height="150" minimized="0" channel="2" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="-0.31346939" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="67584">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f40c.au" len="67584" min="-0.495517" max="0.641209" rms="0.109821"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Audio Track" isSelected="1" height="150" minimized="0" channel="2" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.3" colorindex="0">
+		<waveclip offset="-0.20897959" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="67584">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1ffe0.au" len="67584" min="-0.49586" max="0.640377" rms="0.111066"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

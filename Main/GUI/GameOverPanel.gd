@@ -24,4 +24,4 @@ func set_stats(distance, altitude, money):
 	if altitude > Save.highest_altitude:
 		$Control/MarginContainer/VBoxContainer/VBoxContainer/AltitudeNewRecord.text = "New record!!"
 	else:
-		$Control/MarginContainer/VBoxContainer/VBoxContainer/AltitudeNewRecord.text = "New record!!"
+		$Control/MarginContainer/VBoxContainer/VBoxContainer/AltitudeNewRecord.text = ""

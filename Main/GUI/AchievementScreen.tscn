@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Main/GUI/GameTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Main/GUI/AchievementScreen.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Audio/Sounds/success.wav" type="AudioStream" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "ShowAndFade"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AchievementMessage:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AchievementMessage:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.980392, 0.980392, 0.980392, 1 ), Color( 0.980392, 0.980392, 0.980392, 1 ), Color( 0.980392, 0.980392, 0.980392, 0 ) ]
+}
+
+[node name="AchievementScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AchievementMessage" type="Label" parent="."]
+modulate = Color( 0.980392, 0.980392, 0.980392, 1 )
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -7.0
+margin_bottom = 7.0
+theme = ExtResource( 1 )
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/ShowAndFade = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )

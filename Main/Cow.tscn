@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Main/Jump.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Textures/CowSpritesheet.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Audio/Sounds/cow.wav" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Walk"
@@ -57,3 +58,6 @@ hframes = 2
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 autoplay = "Walk"
 anims/Walk = SubResource( 1 )
+
+[node name="SoundEffect" parent="." index="3"]
+stream = ExtResource( 3 )

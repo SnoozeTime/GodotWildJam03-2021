@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Map (basic version).wav-6fbf50704f8370197f9136caa7155c3b.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/Map (basic version).wav"
+dest_files=[ "res://.import/Map (basic version).wav-6fbf50704f8370197f9136caa7155c3b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
